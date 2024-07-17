@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+header {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #161616;
+    width: 90%;
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.headLogo {
+    height: 3rem;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav>.navOge {
+    margin: 0 .2rem;
+}
+
+main {
+    margin-top: 10rem;
+}
+
+main.formContainer {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.oturumForm {
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+    width: 500px;
+    box-shadow: 0px 1px 5px rgb(22, 22, 22, 0.5);
+}
+
+.main-container {
+	font-family: 'Lato';
+}
+
+.ck-content {
+	font-family: 'Lato';
+	line-height: 1.6;
+	word-break: break-word;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+	min-width: 100%;
+	max-width: 100%;
+}
+
+.ck-editor__editable_inline:not(.ck-comment__input *) {
+    height: 300px;
+    overflow-y: auto;
+}
