@@ -3,58 +3,51 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BlogForm from "../../Components/Blog/Form";
 import { usePage } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
-function BlogEkle() {
+function BlogDuzenle() {
     const { blog } = usePage().props;
-    const [baslik, setBaslik] = useState("");
-    const [icerik, setIcerik] = useState("");
 
-    useEffect(() => {
+    const blogGonder = (data) => {
         if (blog) {
-            setBaslik(blog.baslik);
-            setIcerik(blog.icerik);
+            axios
+                .post("/blog/duzenle/" + blog.slug, data)
+                .then((response) => {
+                    return Swal.fire({
+                        icon: "success",
+                        title: "Başarılı",
+                        html: response.data
+                            ? `<p class="text-center">${response.data.mesaj}</p>`
+                            : false,
+                        confirmButtonText: "Tamam !",
+                        heightAuto: false,
+                    });
+                }).catch((error) => {
+                    let errors = error.response ? error.response.data.message : null;
+
+                    return Swal.fire({
+                        icon: "error",
+                        title: "Başarısız",
+                        html: errors
+                            ? `<p class="text-center">${errors}</p>`
+                            : `<p class="text-center">Blog Oluşturulamadı !</p>`,
+                        confirmButtonText: "Tamam !",
+                        heightAuto: false,
+                    });
+                });
         }
-    }, [blog]);
-
-    const handleBaslikChange = (event) => {
-        setBaslik(event.target.value);
-    };
-
-    const handleEditorChange = (event, editor) => {
-        setIcerik(editor.getData());
-    };
-
-    const blogGonder = () => {
-        if (!baslik.trim() || !icerik.trim()) {
-            alert("Başlık ve içerik alanları boş olamaz!");
-            return;
-        }
-
-        axios
-            .post(blog ? "/blog/duzenle/" + blog.slug : "/blog/ekle", { baslik, icerik })
-            .then((response) => {
-                alert("İşlem başarıyla tamamlandı: " + response.data.mesaj);
-                // İşlem tamamlandıktan sonra yönlendirme veya başka bir işlem yapılabilir
-            })
-            .catch((error) => {
-                let errorMessage = error.response ? error.response.data.message : "Bir hata oluştu!";
-                alert("Hata: " + errorMessage);
-            });
     };
 
     return (
         <>
             <BlogForm
-                formBaslik={blog ? "Blog Düzenle" : "Blog Ekle"}
-                formButtonText={blog ? "Blog Güncelle" : "Blog Oluştur"}
-                BaslikChange={handleBaslikChange}
-                EditorChange={handleEditorChange}
+                formBaslik="Blog Düzenle"
+                formButtonText="Blog Güncelle"
                 blogGonderForm={blogGonder}
             />
         </>
     );
 }
+BlogDuzenle.layout = (page) => <AppLayout children={page} />;
 
-BlogEkle.layout = (page) => <AppLayout children={page} />;
-
-export default BlogEkle;
+export default BlogDuzenle;
