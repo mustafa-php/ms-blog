@@ -5,7 +5,7 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, "index"]);
-Route::get('/goster/{blog:slug}', [BlogController::class, "show"])->name("show");
+Route::get('/blog/goster/{blog:slug}', [BlogController::class, "show"])->name("show");
 
 
 Route::middleware(['auth', 'blog'])->prefix("/blog")->name("blog.")->group(function () {
