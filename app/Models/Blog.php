@@ -25,14 +25,13 @@ class Blog extends Model
      */
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'kullanici_id', 'baslik', 'icerik', 'slug', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'kullanici_id', 'baslik', 'icerik', 'kategori', 'slug', 'created_at', 'updated_at'];
 
     public static function getBySlug($slug)
     {
         return self::where('slug', $slug)->first();
     }
 
-    // Tüm blog yazılarını önbelleğe al
     public static function allCached()
     {
         return Cache::remember('posts.all', 3600, function () {
@@ -40,7 +39,6 @@ class Blog extends Model
         });
     }
 
-    // Belirli bir blog yazısını slug ile önbelleğe al
     public static function findBySlugCached($slug)
     {
         return Cache::remember("post.{$slug}", 3600, function () use ($slug) {
@@ -48,10 +46,8 @@ class Blog extends Model
         });
     }
 
-    // Cache'i temizlemek için kullanılabilir (örneğin, bir blog yazısı oluşturulduğunda veya güncellendiğinde)
     public static function clearCache()
     {
         Cache::forget('posts.all');
-        // Belirli slug'ları unutmak için logic ekleyebilirsiniz
     }
 }

@@ -1,10 +1,12 @@
 import Header from "../Components/Header";
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
     return (
         <>
-            <Header></Header>
+            <Header />
             <main>{children}</main>
         </>
     );
-}
+};
+
+export default Layout;

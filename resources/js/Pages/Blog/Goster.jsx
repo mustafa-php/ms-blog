@@ -5,33 +5,27 @@ function BlogGoster() {
     const { blog } = usePage().props;
 
     return (
-        <>
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-8 col-md-10 col-12">
-                        <article className="card">
-                            <div className="card-header">
-                                <div className="card-title">
-                                    <h1>{blog && blog.baslik}</h1>
-                                </div>
-                            </div>
-
-                            <div className="card-body">
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: blog && blog.icerik,
-                                    }}
-                                />{" "}
-                            </div>
-
-                            <div className="card-footer">
-                                Yazar : {blog && blog.yazar}
-                            </div>
-                        </article>
-                    </div>
+        <div className="container my-5">
+            <div className="row justify-content-center">
+                <div className="col-lg-8 col-md-10 col-12">
+                    <article className="card">
+                        <header className="card-header">
+                            <h1 className="card-title">{blog?.baslik}</h1>
+                        </header>
+                        <div className="card-body">
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: blog?.icerik,
+                                }}
+                            />
+                        </div>
+                        <footer className="card-footer">
+                            <p>Yazar: {blog?.yazar}</p>
+                        </footer>
+                    </article>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

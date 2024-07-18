@@ -21,10 +21,9 @@ class CacheServis
             foreach ($blogKeys as $key) {
                 $blogs[] = Cache::get($key);
             }
-            $perPage = $request->input('perPage', 20); // Sayfa başına gösterilecek öğe sayısı, varsayılan olarak 20
-            $currentPage = $request->input('page', 1); // Mevcut sayfa numarası, varsayılan olarak 1
+            $perPage = $request->input('perPage', 20);
+            $currentPage = $request->input('page', 1);
 
-            // Verileri sayfalayıp döndürmek için LengthAwarePaginator kullan
             $paginator = new LengthAwarePaginator(
                 array_slice($blogs, ($currentPage - 1) * $perPage, $perPage),
                 count($blogs),
@@ -32,7 +31,6 @@ class CacheServis
                 $currentPage,
                 ['path' => $request->url(), 'query' => $request->query()]
             );
-
 
             return $paginator;
         } catch (\Throwable $th) {
@@ -58,10 +56,11 @@ class CacheServis
             "id" => $blog->id,
             "baslik" => $blog->baslik,
             "icerik" => $blog->icerik,
+            "kategori" => $blog->kategori,
             "yazar" => $blog->yazar,
             "yazar_id" => $blog->kullanici_id,
             "slug" => $blog->slug,
-            "olusturma_tarig" => $blog->crete_at,
+            "olusturma_tarig" => $blog->create_at,
         ];
         Cache::put('blog_' . $blog->slug, $cacheVeri);
     }
@@ -72,6 +71,7 @@ class CacheServis
             "id" => $blog->id,
             "baslik" => $blog->baslik,
             "icerik" => $blog->icerik,
+            "kategori" => $blog->kategori,
             "yazar" => $blog->yazar,
             "yazar_id" => $blog->kullanici_id,
             "slug" => $blog->slug,
@@ -79,7 +79,6 @@ class CacheServis
         ];
         Cache::put('blog_' . $blog->slug, $cacheVeri);
     }
-
 
     public static function blogDelete($slug)
     {

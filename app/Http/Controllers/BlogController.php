@@ -30,7 +30,8 @@ class BlogController extends Controller
             $veriler = [
                 "kullanici_id" => Auth::id(),
                 "baslik" => $request->input("baslik"),
-                "icerik" => $request->input("icerik")
+                "icerik" => $request->input("icerik"),
+                "kategori" => $request->input("kategori")
             ];
 
             BlogServis::ekle($veriler);
@@ -66,7 +67,8 @@ class BlogController extends Controller
         try {
             $veriler = [
                 "baslik" => $request->input("baslik"),
-                "icerik" => $request->input("icerik")
+                "icerik" => $request->input("icerik"),
+                "kategori" => $request->input("kategori")
             ];
 
             BlogServis::duzenle($blog, $veriler);

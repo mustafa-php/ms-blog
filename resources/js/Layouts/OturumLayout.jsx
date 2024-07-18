@@ -1,9 +1,11 @@
-import { usePage } from "@inertiajs/react";
-
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
     return (
         <>
-            <main className="formContainer">{children}</main>
+            <main className="formContainer">
+                {children}
+            </main>
         </>
     );
-}
+};
+
+export default Layout;

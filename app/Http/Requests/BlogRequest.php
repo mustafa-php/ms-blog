@@ -25,6 +25,7 @@ class BlogRequest extends FormRequest
         return [
             'baslik' => 'required|string|max:150',
             'icerik' => 'required|string|max:600',
+            'kategori' => 'required|int',
         ];
     }
 }
